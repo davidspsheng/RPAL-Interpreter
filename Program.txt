@@ -1,0 +1,16 @@
+let print t = rprint t ''
+ where rec rprint t spaces =
+	Isinteger t -> spaces @Conc (ItoS t) @Conc '\n'
+	| Isstring t -> spaces @Conc t @Conc '\n'
+	| Istuple t-> (tuple t (Order t) where
+			rec tuple t n = n eq 1 ->
+				Isinteger (t n) or Isstring (t n)
+				 -> rprint (t n) spaces
+				| 'error'
+			| tuple t (n-1) @Conc
+			  rprint (t n) (spaces @Conc '...')
+		)	//	Note:	()'s required !
+	| 'error'
+in Print (
+	print ('+', ('-',4,('+',5,6)), 3, ('*',7,8)	)
+	)
